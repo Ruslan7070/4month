@@ -1,0 +1,70 @@
+{% extends 'layouts/main.html' %}
+
+{% block content %}
+    <style>
+        .image > img {
+            width: 50%;
+            margin-left: 25%;
+        }
+
+        .reviews {
+            width: 70%;
+            margin-left: 15%;
+        }
+
+        .reviews > div {
+            height: 45px;
+            margin-bottom: 20px;
+            background: #242b2e;
+            padding: 10px;
+        }
+        .author {
+            color: #fff;
+            flex: 18px;
+            font-family: sans-serif;
+            font-weight: bold;
+        }
+
+        .text {
+            font-size: 15px;
+            font-family: sans-serif;
+        }
+        .product {
+            width: 70%;
+            margin-left: 15%;
+        }
+        .create_review{
+
+        }
+    </style>
+    <div class="product">
+        <div class="image">
+            <img src="/media/{{ product.image }}/" alt="">
+        </div>
+        <div>
+            <div style="display:flex; justify-content: space-between">
+                <h1>{{ product.title }}</h1>
+                <h3>{{ product.author.username }}</h3>
+            </div>
+            <h5>{{ product.description }}</h5>
+            <h5>{{ product.category.title }}</h5>
+            <div>
+                <p>{{ product.price }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="create_review">
+        <form action="/products{{ product.id }}"></form>
+        {% csrf_token %}
+        {{ form }}
+    </div>
+    <div class="reviews">
+        {% for review in reviews %}
+            <div>
+                <p class="author">{{ review.author.username }}</p>
+                <p class="text">{{ review.text }}</p>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
